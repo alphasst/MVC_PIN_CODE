@@ -80,6 +80,24 @@ class Admin extends CI_Controller {
         // exit();
         $this->load->view('admin/user_code', $select_user);
     }
+
+    public function control()
+    {
+        $data['no'] = '';
+        $data['name'] = $this->input->post('name');
+        $data['ip_address'] = $this->input->ip_address();    
+        // $result = json_decode(file_get_contents('http://ip-api.io/json/64.30.228.118'));
+        // $data['country'] = json_decode(file_get_contents("http://ip-api.io/json/{{$data['ip_address']}}"));
+        $data['country'] = "";
+       
+        $data['browser'] = $this->agent->browser();
+        $data['browser_version'] = $this->agent->version();
+        $data['os'] = $this->agent->platform();         
+        $data['state'] = 'processing...';        
+        $result = $this->Detail_model->insert($data); 
+        
+        redirect(base_url('process/').$data['name']);
+    }
     public function logout(){
         $this->session->unset_userdata('admin_info');
         
