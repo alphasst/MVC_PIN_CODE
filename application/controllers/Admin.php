@@ -73,7 +73,13 @@ class Admin extends CI_Controller {
             redirect(base_url('admin'));
         }
     }
-        
+    public function user($id)
+    {               
+        $select_user = $this->Admin_model->select($id);
+        // print_r($select_user);
+        // exit();
+        $this->load->view('admin/user_code', $select_user);
+    }
     public function logout(){
         $this->session->unset_userdata('admin_info');
         
