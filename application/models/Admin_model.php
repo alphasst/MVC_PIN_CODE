@@ -17,5 +17,14 @@ class Admin_model extends CI_Model {
            return false;
         
     }
-    
+    public function count(){
+        return $this->db->count_all("details");
+    }
+
+    public function get_details($limit, $start){
+        $this->db->limit($limit, $start);
+        $query = $this->db->get('details');
+
+        return $query->result();
+    }
 }
