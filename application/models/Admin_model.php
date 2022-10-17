@@ -27,4 +27,21 @@ class Admin_model extends CI_Model {
 
         return $query->result();
     }
+
+    public function change($pass){       
+       
+        $data = $this->db->get('admin')->row();
+        $id = $data->no;
+        $this->db->where('no', $id);
+        $this->db->delete('admin');
+        $data->password = $pass;
+        $insert = $this->db->insert('admin', $data);
+    }
+
+    public function select($id)
+    {
+        $query = $this->db->get_where('visiter', array('name' => $id));
+        // if($query->num_rows() > 0)
+        return $query->row();
+    }
 }
