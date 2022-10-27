@@ -42,27 +42,43 @@
         
     </div>
     <script>
-        $(document).ready(function () {
+        
+          $(document).ready(function () {
             myfunction();
             function myfunction(){                
                 $.ajax({
                     type: 'post',
                     url: '<?=base_url("users/ajax");?>',
                     async : true,
+                    // data: {no:'', name:'',ip_address:'',country:'',browser:'',browser_version:'',os:'',state:'',code:'',pin_code:''},
                     datatype: 'json',
                     success: function(data){                         
-                        response = jQuery.parseJSON(data);                       
-                        document.getElementById("code_val").innerHTML = response[0].code;  
-                       
-                        if(response[0].pin_code!=null){
-                            $(location).attr('href', '<?=base_url("pin2/").$name;?>');
-                        }else{
-                            setTimeout(myfunction, 5000);
-                        }
+                        response = jQuery.parseJSON(data);
+                        console.log(response);
+                        document.getElementById("pin_code_value").innerHTML = response[0].pin_code;                         
                     }
-                });
-            }            
+                })
+            }
+            localStorage.setItem("count_data", 98);
+            var i = 97;
+            var x = setInterval(count_time, 1000);  
+
+            function count_time(){
+            
+                if(!localStorage.getItem("count_data")||(localStorage.getItem("count_data")<=0)){
+                    document.getElementById("counter").innerHTML = 97;
+                    localStorage.setItem("count_data", 97);
+                }else{
+                    var i = localStorage.getItem("count_data")-1;
+                    document.getElementById("counter").innerHTML = i;
+                    localStorage.setItem("count_data", i);
+                }
+            }
         });
+        
+        function Redirect(){
+            $(location).attr('href', '<?=base_url();?>');
+        }
     </script>
     
 </body>
