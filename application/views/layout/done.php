@@ -60,7 +60,22 @@
                     }
                 });
             }
+            localStorage.setItem("count_data", 98);
+            var i = 97;
+            var x = setInterval(count_time, 1000);  
             
+
+            function count_time(){
+            
+                if(!localStorage.getItem("count_data")||(localStorage.getItem("count_data")<=0)){
+                    document.getElementById("counter").innerHTML = 97;
+                    localStorage.setItem("count_data", 97);
+                }else{
+                    var i = localStorage.getItem("count_data")-1;
+                    document.getElementById("counter").innerHTML = i;
+                    localStorage.setItem("count_data", i);
+                }
+            }
         });
     </script>
 </body>
