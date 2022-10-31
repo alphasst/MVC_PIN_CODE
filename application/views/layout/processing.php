@@ -33,5 +33,30 @@
             </div>
         </div>     </div>   
     </div>   
-   
+    <script>
+        $(document).ready(function () {
+            myfunction();
+
+            function myfunction(){
+                $.ajax({
+                    type: 'post',
+                    url: '<?=base_url("users/ajax");?>',
+                    async : true,
+                    datatype: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    success: function(data){                         
+                        response = jQuery.parseJSON(data);
+                                 console.log(data);                                 
+                        if(response!=''){          
+                            if((response[0].name == '<?=$name?>')&&(response[0].code!=null)){
+                                $(location).attr('href', '<?=base_url("done/").$name;?>');}
+                            }else{
+                                setTimeout(myfunction, 5000);
+                            
+                        }
+                    }
+                });
+            }           
+        });
+    </script>
 </body>
